@@ -13,14 +13,16 @@ export default defineNuxtModule<ModuleOptions>({
   },
   // Default configuration options of the Nuxt module
   defaults: {
-    plugins: ()=>{}
+    plugins: ()=>{
+      console.log('2 -> plugin options defineNuxtModule')
+    }
   },
   setup (options, nuxt) {
     const resolver = createResolver(import.meta.url)
-
-    nuxt.options.runtimeConfig.public.myModules = defu(nuxt.options.runtimeConfig.public.myModules, {
+    console.log('1',options.plugins)
+    nuxt.options.runtimeConfig.public.myModules = {
       plugins: options.plugins!,
-    })
+    }
 
     // Do not add the extension since the `.ts` will be transpiled to `.mjs` after `npm run prepack`
     addPlugin(resolver.resolve('./runtime/plugin'))
